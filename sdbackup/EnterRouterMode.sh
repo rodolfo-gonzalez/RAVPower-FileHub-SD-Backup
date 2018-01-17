@@ -51,7 +51,7 @@ cat <<'EOF' > /etc/udev/script/usb_backup.sh
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
-# Kill an existing backup process if running 
+# Kill an existing backup process if running
 # (this can happen if you insert two disks one after the other)
 if [ -e /tmp/backup.pid ]; then
         kill $(cat /tmp/backup.pid)
@@ -134,12 +134,12 @@ if [ $sdcard -eq 1 -a $storedrive -eq 1 ];then
         # Organize the photos in a folder for each SD card by UUID,
         target_dir="$store_mountpoint$PHOTO_DIR"/"$sd_uuid"
         mkdir -p $target_dir
-		mkdir -p "$STORE_DIR"/log
-        # Copy the files from the sd card to the target dir, 
+		    mkdir -p "$STORE_DIR"/log
+        # Copy the files from the sd card to the target dir,
         # Uses filename and size to check for duplicates
         echo "$(date): Copying SD card to $target_dir" >> "$STORE_DIR"/log/usb_add_info
-        rsync -vrmt -v --size-only --log-file "$store_mountpoint$PHOTO_DIR"/tmp/rsync_log --exclude ".?*" "$SD_MOUNTPOINT"/DCIM/ "$target_dir"/DCIM/
-        rsync -vrmt -v --size-only --log-file "$store_mountpoint$PHOTO_DIR"/tmp/rsync_log --exclude ".?*" "$SD_MOUNTPOINT"/PRIVATE/ "$target_dir"/PRIVATE/
+        rsync -vrmt -v --size-only --log-file "$store_mountpoint$PHOTO_DIR"/tmp/rsync_log --exclude ".?*" "$SD_MOUNTPOINT"/* "$target_dir"/
+        #rsync -vrmt -v --size-only --log-file "$store_mountpoint$PHOTO_DIR"/tmp/rsync_log --exclude ".?*" "$SD_MOUNTPOINT"/PRIVATE/ "$target_dir"/PRIVATE/
 fi
 
 # If both a valid store drive and a matching backup drive are attached,
